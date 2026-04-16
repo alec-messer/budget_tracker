@@ -3,138 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meal Planner</title>
+    <title>Budget Tracker</title>
 
     <link rel="stylesheet" href="/static/style.css">
-    <link rel="apple-touch-icon" href="/static/icon.png">
 </head>
 
 <body>
 
-{% if success %}
-<div class="success-banner" id="successBanner">
-    Meal added successfully
-</div>
-{% endif %}
-
-{% if deleted %}
-<div class="delete-banner" id="deleteBanner">
-    Meal deleted successfully
-</div>
-{% endif %}
-
-<!-- =========================
-     SIDE PANEL (LEFT)
-========================= -->
+<!-- LEFT PANEL: ADD TRANSACTION -->
 <div id="sidePanel" class="side-panel">
+    <h2>Add Transaction</h2>
 
-    <div class="panel-content">
+    <input id="txName" placeholder="Name">
+    <input id="txAmount" type="number" step="any" placeholder="Amount">
 
-        <h2>Add Meal</h2>
+    <select id="txType">
+        <option value="out">Expense</option>
+        <option value="in">Income</option>
+    </select>
 
-        <form method="POST" action="/add_meal" id="mealForm">
-
-            <input name="name" id="mealName" placeholder="Meal name" required>
-
-            <div id="ingredients-container">
-                <div class="ingredient-row">
-                    <input name="ingredient_name[]" placeholder="Ingredient" required>
-
-                    <input name="ingredient_qty[]" placeholder="Qty" type="number" step="any" required>
-
-                    <select name="ingredient_unit[]" required>
-                        <option value="">Unit</option>
-                        <option value="grams">grams</option>
-                        <option value="items">items</option>
-                    </select>
-
-                    <select name="ingredient_type[]" required>
-                        <option value="">Type</option>
-                        <option value="meat">meat</option>
-                        <option value="dairy">dairy</option>
-                        <option value="fruit">fruit</option>
-                        <option value="veg">veg</option>
-                        <option value="other">other</option>
-                    </select>
-                </div>
-            </div>
-
-            <button type="button" onclick="addIngredient()">+ Add ingredient</button>
-            <button type="submit" id="submitMeal" disabled>Add meal</button>
-
-        </form>
-    </div>
+    <button onclick="addTransaction()">Add</button>
 </div>
 
-<!-- =========================
-     SIDE PANEL (RIGHT)
-========================= -->
-<div id="deletePanel" class="side-panel right-panel">
+<!-- RIGHT PANEL: NEW MONTH -->
+<div id="monthPanel" class="side-panel right-panel">
+    <h2>New Month</h2>
 
-    <div class="panel-content">
+    <input id="pay" placeholder="Monthly Pay" type="number">
+    <input id="balance" placeholder="Starting Balance" type="number">
+    <input id="savings" placeholder="Savings" type="number">
 
-        <h2>Delete Meal</h2>
-
-        <form method="POST" action="/delete_meal">
-
-            <select name="name" required>
-                <option value="">Select meal</option>
-                {% for meal in meals.keys() %}
-                <option value="{{ meal }}">{{ meal }}</option>
-                {% endfor %}
-            </select>
-
-            <button type="submit" class="delete-btn">Delete meal</button>
-
-        </form>
-
-    </div>
+    <button onclick="startNewMonth()">Reset</button>
 </div>
 
-<!-- =========================
-     PANEL TOGGLE BUTTONS (FIXED OUTSIDE PANELS)
-========================= -->
-
+<!-- BUTTONS -->
 <button class="panel-handle" onclick="togglePanel()">+</button>
-<button class="right-handle" onclick="toggleDeletePanel()">−</button>
-
-<!-- =========================
-     MAIN APP
-========================= -->
+<button class="right-handle" onclick="toggleMonthPanel()">⟳</button>
 
 <div class="app">
 
-    <h1>Meal Planner</h1>
+    <h1 id="balanceDisplay">£{{ state.balance }}</h1>
 
-    <div class="card">
-        <div class="week-vertical">
-            {% for day in ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'] %}
-            <div class="day">
-                <label>{{ day }}</label>
-
-                <select class="meal-select">
-                    <option value="">--</option>
-                    {% for meal in meals.keys() %}
-                    <option value="{{ meal }}">{{ meal }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            {% endfor %}
+    <div id="transactions">
+        {% for t in transactions %}
+        <div class="tx {{ t.type }}">
+            <span>{{ t.name }}</span>
+            <span>£{{ t.amount }}</span>
         </div>
-
-        <button onclick="generateList()">Generate Shopping List</button>
-    </div>
-
-    <div class="card hidden" id="output-card">
-        <pre id="output"></pre>
-        <button class="share-button" onclick="shareList()">Share</button>
+        {% endfor %}
     </div>
 
 </div>
-
-<script>
-    const MEALS = {{ meals | tojson }};
-</script>
 
 <script src="/static/script.js"></script>
 
