@@ -40,11 +40,16 @@ body {
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 }
 
-.tx.in { color: green; }
-.tx.out { color: red; }
+.tx.in {
+    color: green;
+}
+
+.tx.out {
+    color: red;
+}
 
 /* =========================
-   PANELS
+   SIDE PANELS
 ========================= */
 
 .side-panel {
@@ -57,8 +62,10 @@ body {
     transition: transform 0.3s ease;
     z-index: 1500;
     padding: 20px;
+    box-sizing: border-box;
 }
 
+/* LEFT PANEL */
 #sidePanel {
     left: 0;
     transform: translateX(-110%);
@@ -68,6 +75,7 @@ body {
     transform: translateX(0);
 }
 
+/* RIGHT PANEL */
 #monthPanel {
     right: 0;
     transform: translateX(110%);
@@ -78,17 +86,31 @@ body {
 }
 
 /* =========================
+   PANEL CONTENT SPACING
+========================= */
+
+.panel-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* =========================
    INPUTS
 ========================= */
 
 input, select {
     width: 100%;
-    margin-top: 10px;
     padding: 10px;
     border-radius: 10px;
     border: none;
     background: #f0f0f5;
+    box-sizing: border-box;
 }
+
+/* =========================
+   BUTTONS
+========================= */
 
 button {
     margin-top: 10px;
@@ -101,7 +123,7 @@ button {
 }
 
 /* =========================
-   FLOAT BUTTONS (FIXED TEXT RENDERING)
+   FLOAT BUTTONS (FIXED ICONS)
 ========================= */
 
 .panel-handle,
@@ -122,14 +144,20 @@ button {
     font-size: 28px;
     font-weight: 500;
 
+    line-height: 56px; /* CRITICAL FIX FOR ICON VISIBILITY */
+
     box-shadow: 0 5px 15px rgba(0,0,0,0.15);
     z-index: 9999;
 
     cursor: pointer;
 
-    /* IMPORTANT: do NOT force symbol fonts */
-    font-family: inherit;
+    font-family: system-ui, -apple-system, "Segoe UI Symbol", sans-serif;
 }
 
-.panel-handle { left: 20px; }
-.right-handle { right: 20px; }
+.panel-handle {
+    left: 20px;
+}
+
+.right-handle {
+    right: 20px;
+}
