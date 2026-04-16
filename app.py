@@ -64,15 +64,15 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    docs = db.collection('meals').stream()
-    meals = {doc.id: doc.to_dict()['ingredients'] for doc in docs}
+    docs = db.collection('budget').stream()
+    meals = {doc.id: doc.to_dict()['items'] for doc in docs}
 
     success = request.args.get('success')
     deleted = request.args.get('deleted')
 
     return render_template(
         'index.html',
-        meals=meals,
+        budget=budget,
         success=success,
         deleted=deleted
     )
