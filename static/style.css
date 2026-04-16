@@ -4,59 +4,42 @@ body {
     margin: 0;
 }
 
+/* APP */
+
 .app {
-    max-width: 1100px;
+    max-width: 600px;
     margin: auto;
     padding: 20px;
 }
 
-.card {
-    background: white;
-    padding: 16px;
-    border-radius: 16px;
-    margin-bottom: 16px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+.balance {
+    font-size: 48px;
+    font-weight: 600;
+    text-align: center;
+    margin: 20px 0;
 }
 
-input, select {
-    width: 100%;
-    margin-top: 6px;
-    padding: 8px;
-    border-radius: 10px;
-    border: none;
-    background: #f0f0f5;
-}
+/* TRANSACTIONS */
 
-button {
-    margin-top: 10px;
-    padding: 10px;
-    border-radius: 10px;
-    border: none;
-    background: black;
-    color: white;
-    cursor: pointer;
-}
-
-.hidden {
-    display: none;
-}
-
-.week-vertical {
+#transactions {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.day {
-    display: grid;
-    grid-template-columns: 60px 1fr;
-    align-items: center;
-    gap: 10px;
+.tx {
+    display: flex;
+    justify-content: space-between;
+    padding: 14px;
+    border-radius: 12px;
+    background: white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 }
 
-.day label {
-    font-weight: 500;
-}
+.tx.in { color: green; }
+.tx.out { color: red; }
+
+/* PANELS */
 
 .side-panel {
     position: fixed;
@@ -68,8 +51,10 @@ button {
     transition: transform 0.3s ease;
     z-index: 1500;
     padding: 20px;
+    box-sizing: border-box;
 }
 
+/* LEFT */
 #sidePanel {
     left: 0;
     transform: translateX(-110%);
@@ -79,14 +64,41 @@ button {
     transform: translateX(0);
 }
 
-#deletePanel {
+/* RIGHT */
+#monthPanel {
     right: 0;
     transform: translateX(110%);
 }
 
-#deletePanel.open {
+#monthPanel.open {
     transform: translateX(0);
 }
+
+/* INPUTS */
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 10px;
+    border: none;
+    background: #f0f0f5;
+    box-sizing: border-box;
+}
+
+/* BUTTONS INSIDE PANELS */
+
+button {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background: black;
+    color: white;
+    cursor: pointer;
+}
+
+/* FLOAT BUTTONS (ORIGINAL RELIABLE SYSTEM) */
 
 .panel-handle {
     position: fixed;
@@ -103,11 +115,13 @@ button {
     align-items: center;
     justify-content: center;
 
-    font-size: 26px;
+    font-size: 28px;
     font-weight: 600;
 
     box-shadow: 0 5px 15px rgba(0,0,0,0.15);
     z-index: 9999;
+
+    cursor: pointer;
 }
 
 .right-handle {
@@ -125,9 +139,19 @@ button {
     align-items: center;
     justify-content: center;
 
-    font-size: 26px;
+    font-size: 28px;
     font-weight: 600;
 
     box-shadow: 0 5px 15px rgba(0,0,0,0.15);
     z-index: 9999;
+
+    cursor: pointer;
+}
+
+/* PANEL CONTENT SPACING */
+
+.panel-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
