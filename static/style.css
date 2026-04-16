@@ -119,22 +119,17 @@ button {
     align-items: center;
     justify-content: center;
 
-    font-size: 26px;
-    font-weight: 400;
+    font-size: 28px;
+    font-weight: 500;
 
     box-shadow: 0 5px 15px rgba(0,0,0,0.15);
     z-index: 9999;
 
     cursor: pointer;
 
-    /* KEY FIX: prevents glyph clipping */
-    font-family: "Segoe UI Symbol", "Apple Symbols", sans-serif;
+    /* IMPORTANT: do NOT force symbol fonts */
+    font-family: inherit;
 }
 
-.panel-handle {
-    left: 20px;
-}
-
-.right-handle {
-    right: 20px;
-}
+.panel-handle { left: 20px; }
+.right-handle { right: 20px; }
