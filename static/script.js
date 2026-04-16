@@ -29,5 +29,8 @@ function startNewMonth() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ pay, balance, savings })
     })
-    .then(() => location.reload());
+    .then(res => res.json())
+    .then(data => {
+        location.reload();
+    });
 }
