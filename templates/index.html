@@ -12,37 +12,48 @@
 
 <!-- LEFT PANEL: ADD TRANSACTION -->
 <div id="sidePanel" class="side-panel">
-    <h2>Add Transaction</h2>
+    <div class="panel-content">
 
-    <input id="txName" placeholder="Name">
-    <input id="txAmount" type="number" step="any" placeholder="Amount">
+        <h2>Add Transaction</h2>
 
-    <select id="txType">
-        <option value="out">Expense</option>
-        <option value="in">Income</option>
-    </select>
+        <input id="txName" placeholder="Name">
+        <input id="txAmount" type="number" step="any" placeholder="Amount">
 
-    <button onclick="addTransaction()">Add</button>
+        <select id="txType">
+            <option value="out">Expense</option>
+            <option value="in">Income</option>
+        </select>
+
+        <button onclick="addTransaction()">Add transaction</button>
+
+    </div>
 </div>
 
 <!-- RIGHT PANEL: NEW MONTH -->
 <div id="monthPanel" class="side-panel right-panel">
-    <h2>New Month</h2>
+    <div class="panel-content">
 
-    <input id="pay" placeholder="Monthly Pay" type="number">
-    <input id="balance" placeholder="Starting Balance" type="number">
-    <input id="savings" placeholder="Savings" type="number">
+        <h2>New Month</h2>
 
-    <button onclick="startNewMonth()">Reset</button>
+        <input id="pay" type="number" placeholder="Monthly pay">
+        <input id="balance" type="number" placeholder="Remaining balance">
+        <input id="savings" type="number" placeholder="Savings balance">
+
+        <button onclick="startNewMonth()">Reset month</button>
+
+    </div>
 </div>
 
-<!-- BUTTONS -->
+<!-- TOGGLE BUTTONS -->
 <button class="panel-handle" onclick="togglePanel()">+</button>
 <button class="right-handle" onclick="toggleMonthPanel()">⟳</button>
 
+<!-- MAIN APP -->
 <div class="app">
 
-    <h1 id="balanceDisplay">£{{ state.balance }}</h1>
+    <div class="balance">
+        £{{ state.balance }}
+    </div>
 
     <div id="transactions">
         {% for t in transactions %}
