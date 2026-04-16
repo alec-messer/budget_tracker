@@ -4,32 +4,73 @@ body {
     margin: 0;
 }
 
-/* =========================
-   APP LAYOUT
-========================= */
-
 .app {
-    max-width: 1100px;
+    max-width: 600px;
     margin: auto;
     padding: 20px;
 }
 
-.card {
-    background: white;
-    padding: 16px;
-    border-radius: 16px;
-    margin-bottom: 16px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+h1 {
+    font-size: 48px;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
-/* =========================
-   INPUTS
-========================= */
+/* TRANSACTIONS */
+
+#transactions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.tx {
+    display: flex;
+    justify-content: space-between;
+    padding: 14px;
+    border-radius: 12px;
+    background: white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.tx.in {
+    color: green;
+}
+
+.tx.out {
+    color: red;
+}
+
+/* PANELS */
+
+.side-panel {
+    position: fixed;
+    top: 0;
+    width: 300px;
+    height: 100%;
+    background: white;
+    transform: translateX(-110%);
+    transition: 0.3s;
+    padding: 20px;
+}
+
+.side-panel.open {
+    transform: translateX(0);
+}
+
+.right-panel {
+    right: 0;
+    transform: translateX(110%);
+}
+
+.right-panel.open {
+    transform: translateX(0);
+}
 
 input, select {
     width: 100%;
-    margin-top: 6px;
-    padding: 8px;
+    margin-top: 10px;
+    padding: 10px;
     border-radius: 10px;
     border: none;
     background: #f0f0f5;
@@ -42,230 +83,22 @@ button {
     border: none;
     background: black;
     color: white;
-    cursor: pointer;
 }
 
-.hidden {
-    display: none;
-}
+/* FLOAT BUTTONS */
 
-/* =========================
-   WEEK
-========================= */
-
-.week-vertical {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.day {
-    display: grid;
-    grid-template-columns: 60px 1fr;
-    align-items: center;
-    gap: 10px;
-}
-
-.day label {
-    font-weight: 500;
-}
-
-/* =========================
-   SIDE PANELS
-========================= */
-
-.side-panel {
+.panel-handle, .right-handle {
     position: fixed;
-    top: 0;
-    width: 300px;
-    height: 100%;
-    background: white;
-    box-shadow: 10px 0 30px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
-    z-index: 1500;
-    padding: 20px;
-}
-
-#sidePanel {
-    left: 0;
-    transform: translateX(-110%);
-}
-
-#sidePanel.open {
-    transform: translateX(0);
-}
-
-#deletePanel {
-    right: 0;
-    transform: translateX(110%);
-}
-
-#deletePanel.open {
-    transform: translateX(0);
-}
-
-/* =========================
-   TOGGLE BUTTON BASE
-========================= */
-
-.panel-handle {
-    position: fixed;
-    left: 20px;
     bottom: 20px;
-
     width: 56px;
     height: 56px;
-
     border-radius: 14px;
     background: white;
-
+    font-size: 26px;
     display: flex;
     align-items: center;
     justify-content: center;
-
-    color: black;
-    font-size: 26px;
-    font-weight: 600;
-
-    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-    z-index: 9999;
 }
 
-.right-handle {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-
-    width: 56px;
-    height: 56px;
-
-    border-radius: 14px;
-    background: white;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    color: black;
-    font-size: 26px;
-    font-weight: 600;
-
-    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-    z-index: 9999;
-}
-
-/* =========================
-   EXPLICIT POSITION OVERRIDES
-========================= */
-
-/* LEFT (+ button) */
-.panel-handle {
-    left: 20px;
-}
-
-/* RIGHT (− button) */
-.right-handle {
-    right: 20px;
-}
-
-/* =========================
-   SHOPPING LIST
-========================= */
-
-#output {
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-    font-size: 15px;
-    line-height: 1.6;
-
-    background: #fafafa;
-    padding: 16px;
-    border-radius: 12px;
-
-    white-space: pre-wrap;
-}
-
-/* =========================
-   INGREDIENT ROW (FIXED)
-========================= */
-
-.ingredient-row {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-}
-
-.ingredient-row input,
-.ingredient-row select {
-    width: auto;
-    flex: 1;
-    min-width: 0;
-}
-
-/* 🔧 Adjusted sizing to fix "Type" cutoff */
-.ingredient-row input[name="ingredient_name[]"] {
-    flex: 1.6;  /* reduced from 2 */
-}
-
-.ingredient-row input[name="ingredient_qty[]"] {
-    flex: 0.8;
-    max-width: 80px;
-}
-
-.ingredient-row select {
-    flex: 1.1;  /* slightly more space for dropdown text */
-}
-
-.share-button {
-    display: block;
-    margin: 12px auto 0 auto;
-}
-
-.success-banner {
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    
-    background: #28a745;
-    color: white;
-
-    padding: 12px 20px;
-    border-radius: 10px;
-
-    font-size: 14px;
-    font-weight: 500;
-
-    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-    z-index: 9999;
-
-    opacity: 1; /* IMPORTANT: start visible */
-    animation: fadeOut 4s ease forwards;
-}
-
-.delete-banner {
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    
-    background: #dc3545; /* red */
-    color: white;
-
-    padding: 12px 20px;
-    border-radius: 10px;
-
-    font-size: 14px;
-    font-weight: 500;
-
-    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-    z-index: 9999;
-
-    opacity: 1; /* IMPORTANT: start visible */
-    animation: fadeOut 4s ease forwards;
-}
-
-@keyframes fadeOut {
-    0%   { opacity: 1; transform: translate(-50%, 0); }
-    80%  { opacity: 1; }
-    100% { opacity: 0; transform: translate(-50%, -10px); }
-}
+.panel-handle { left: 20px; }
+.right-handle { right: 20px; }
