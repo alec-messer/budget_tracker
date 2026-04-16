@@ -59,7 +59,7 @@
         {% for t in transactions %}
         <div class="tx {{ t.type }}">
             <span>{{ t.name }}</span>
-            <span>£{{ t.amount }}</span>
+            <span>£{{ '%.2f'|format(t.amount) }}</span>
         </div>
         {% endfor %}
     </div>
