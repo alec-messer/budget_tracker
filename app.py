@@ -57,7 +57,7 @@ def add_transaction():
 
     amount = float(data['amount'])
     name = data['name']
-    ttype = data['type']  # 'in' or 'out'
+    ttype = data['type']
 
     state = get_state()
 
@@ -75,20 +75,30 @@ def add_transaction():
         'timestamp': firestore.SERVER_TIMESTAMP
     })
 
-    return jsonify({'success': True})
+    return jsonify({
+        'success': True,
+        'balance': state['balance']
+    })
 
 
 @app.route('/new_month', methods=['POST'])
 def new_month():
     data = request.get_json()
 
+    pay = float(data['pay'])
+    balance = float(data['balance'])
+    savings = float(data.get('savings', 0))
+
+    # NEW RULE:
+    # after payday, balance = pay + remaining balance
+    new_balance = pay + balance
+
     state = {
-        'monthly_pay': float(data['pay']),
-        'balance': float(data['balance']),
-        'savings': float(data['savings'])
+        'monthly_pay': pay,
+        'balance': new_balance,
+        'savings': savings
     }
 
-    # reset state
     db.collection('meta').document('current').set(state)
 
     # clear transactions
@@ -96,8 +106,7 @@ def new_month():
     for d in docs:
         d.reference.delete()
 
-    return jsonify({'success': True})
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
+    return jsonify({
+        'success': True,
+        'new_balance': new_balance
+    })
