@@ -52,7 +52,7 @@
 <div class="app">
 
     <div class="balance">
-        £{{ state.balance }}
+        £{{ '%.2f'|format(state.balance) }}
     </div>
 
     <div id="transactions">
